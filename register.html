@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <style>
+                body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            width: 400px;
+            margin: 0 auto;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+        .success-message {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Registration Form</h2>
+        <form action="process_registration.php" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">E-mail:</label>
+            <input type="text" id="email" name="email" required>
+
+            <label for="ic_number">Identity Card Number:</label>
+            <input type="text" id="ic_number" name="ic_number" required>
+
+            <label for="student_id">Student ID:</label>
+            <input type="text" id="student_id" name="student_id" required>
+
+            <label for="phone_number">Phone Number:</label>
+            <input type="text" id="phone_number" name="phone_number" required>
+
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year" required>
+
+            <label for="faculty">Faculty:</label>
+            <select id="faculty" name="faculty" required>
+                <option value="" disabled selected>Select Faculty</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Science">Science</option>
+                <option value="Business">Business</option>
+                <option value="Arts">Arts</option>
+                <!-- Add more faculty options as needed -->
+            </select>
+
+            <button type="submit">Register</button>
+        </form>
+        
+        <div class="success-message" id="successMessage">
+            Registration successful! Thank you for registering.
+        </div>
+        <p>Already have an account? <a href="login.html">Login</a></p>
+    </div>
+
+    <script>
+        // JavaScript to show the success message
+        const form = document.querySelector('form');
+        const successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            // Simulate a successful registration (replace with actual registration logic)
+            // For example, you can use AJAX to send the form data to the server.
+            // After a successful registration, display the success message.
+            // For demonstration purposes, we'll show it after a short delay here.
+            setTimeout(function () {
+                successMessage.style.display = 'block';
+            }, 1000); // Show the message after 1 second (1000 milliseconds)
+        });
+    </script>
+</body>
+</html>
