@@ -12,18 +12,18 @@ region = customregion
 db_conn = connections.Connection(
     host=customhost,
     port=3306,
-    user=aws_user,
-    password=Bait3273,
-    db=student
+    user=customuser,
+    password=custompass,
+    db=customdb
 
 )
 output = {}
 table = 'student'
 
 
-@app.route("/addStudent", methods=['GET', 'POST'])
+@app.route("/", methods=['GET', 'POST'])
 def home():
-    return render_template('AddEmp.html')
+    return render_template('register.html')
 
 
 @app.route("/about", methods=['POST'])
@@ -40,13 +40,13 @@ def AddEmp():
     student_phone = request.form['phone_number']
     year_of_study = request.form['Year']
     student_faculty = request.form['Faculty']
-    student_image_file = request.files['student_image_file']
+    #student_image_file = request.files['student_image_file']
 
     insert_sql = "INSERT INTO student VALUES (%s, %s, %s, %s, %s, %s, %s)"
     cursor = db_conn.cursor()
 
-    if student_image_file.filename == "":
-        return "Please select a file"
+    # if student_image_file.filename == "":
+    #     return "Please select a file"
 
     try:
 
@@ -54,27 +54,27 @@ def AddEmp():
         db_conn.commit()
         
         # Uplaod image file in S3 #
-        student_image_file_name_in_s3 = "emp-id-" + str(student_id) + "_image_file"
+        #student_image_file_name_in_s3 = "emp-id-" + str(student_id) + "_image_file"
         s3 = boto3.resource('s3')
 
-        try:
-            print("Data inserted in MySQL RDS... uploading image to S3...")
-            s3.Bucket(custombucket).put_object(Key=student_image_file_name_in_s3, Body=student_image_file)
-            bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
-            s3_location = (bucket_location['LocationConstraint'])
+        # """ try:
+        #     print("Data inserted in MySQL RDS... uploading image to S3...")
+        #     s3.Bucket(custombucket).put_object(Key=student_image_file_name_in_s3, Body=student_image_file)
+        #     bucket_location = boto3.client('s3').get_bucket_location(Bucket=custombucket)
+        #     s3_location = (bucket_location['LocationConstraint'])
 
-            if s3_location is None:
-                s3_location = ''
-            else:
-                s3_location = '-' + s3_location
+        #     if s3_location is None:
+        #         s3_location = ''
+        #     else:
+        #         s3_location = '-' + s3_location
 
-            object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
-                s3_location,
-                custombucket,
-                student_image_file_name_in_s3)
+        #     object_url = "https://s3{0}.amazonaws.com/{1}/{2}".format(
+        #         s3_location,
+        #         custombucket,
+        #         student_image_file_name_in_s3)
 
-        except Exception as e:
-            return str(e)
+        # except Exception as e:
+        #     return str(e) """
 
     finally:
         cursor.close()
